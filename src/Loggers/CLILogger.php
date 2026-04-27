@@ -11,7 +11,7 @@ use Psr\Log\AbstractLogger;
 
 /**
  * Handler for logging PSR to artisan console
- * 
+ *
  * PSR-3 compliant console logger.
  *
  * @see Symfony\Component\Console\Logger\ConsoleLogger
@@ -21,9 +21,9 @@ class CLILogger extends AbstractLogger
 {
     private OutputInterface $output;
 
-	/**
-	 * @see Symfony\Component\Console\Color for more colours
-	 */
+    /**
+     * @see Symfony\Component\Console\Color for more colours
+     */
     private array $formatLevelMap = [
         LogLevel::EMERGENCY => LogLevel::ERROR,
         LogLevel::ALERT => LogLevel::ERROR,
@@ -41,19 +41,19 @@ class CLILogger extends AbstractLogger
         $this->formatLevelMap = $formatLevelMap + $this->formatLevelMap;
     }
 
-	/**
-	 * Log messages to artisan output, so we have runtime context
-	 */
+    /**
+     * Log messages to artisan output, so we have runtime context
+     */
     public function log($level, $message, array $context = []): void
     {
-		$this->output->writeln(
-			sprintf(
-				'<%1$s>%3$s [%2$s]</%1$s>', 
-				$this->formatLevelMap[$level], 
-				$level,
-				$message
-			), 
-			OutputInterface::VERBOSITY_NORMAL
-		);
+        $this->output->writeln(
+            sprintf(
+                '<%1$s>%3$s [%2$s]</%1$s>',
+                $this->formatLevelMap[$level],
+                $level,
+                $message
+            ),
+            OutputInterface::VERBOSITY_NORMAL
+        );
     }
 }
