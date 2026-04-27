@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Logging\Loggers;
+namespace PsrLogStacker\Loggers;
 
 use Psr\Log\AbstractLogger;
 
