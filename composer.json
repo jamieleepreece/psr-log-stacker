@@ -1,0 +1,23 @@
+{
+    "name": "jamieleepreece/psr-log-stacker",
+    "description": "A configurable PSR-3 based wrapper for managing and routing log calls",
+    "keywords": ["psr-3", "php", "logger", "manager"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jamie Preece",
+            "email": "jamieleepreece@github.com",
+            "homepage": "http://github.com/jamieleepreece",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "PsrLogStacker\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.1"
+    }
+}
