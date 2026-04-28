@@ -27,7 +27,7 @@ class LogFilter extends AbstractLogger
      *
      * @var array<LogLevel>
      */
-    private array $constraints;
+    private array|null $constraints;
 
     /**
      * The log level mapper
@@ -42,10 +42,10 @@ class LogFilter extends AbstractLogger
      * @var array<LogLevel> $constraints Array of PSR-3 log levels
      * @var array<LogLevel, LogLevel> $level_map Array of PSR-3 log levels to map as [level => remap to]
      */
-    public function __construct(LogManager $logger, array $constraints, array $level_map = null)
+    public function __construct(LogManager $logger, array|null $constraints = null, array|null $level_map = null)
     {
         $this->logger      = $logger;
-        $this->constraints = $constraints;
+        $this->constraints = $constraints ?? null;
 
         if ($level_map) {
             $this->level_map = $level_map;
@@ -55,7 +55,7 @@ class LogFilter extends AbstractLogger
     /**
      * {@inheritdoc}
      *
-     * Merges runtime context with closure context for better debugging.
+     * Parent wrapper for log() calls, allowing filtering per instance
      */
     public function log($level, string|Stringable $message, array $context = []): void
     {
@@ -65,7 +65,9 @@ class LogFilter extends AbstractLogger
             }
         }
 
-        if (in_array($level, $this->constraints)) {
+        if ($this->constraints === null) {
+            $this->logger->log($level, $message, $context);
+        } elseif (in_array($level, $this->constraints)) {
             $this->logger->log($level, $message, $context);
         }
     }
