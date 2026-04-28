@@ -2,14 +2,9 @@
 
 namespace PsrLogStacker;
 
-use Psr\Log\LoggerInterface;
 use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
-use Illuminate\Support\Facades\Log;
-use Closure;
 use Stringable;
-
-// use App\Services\LogManager;
 
 /**
  * Filter wrapper for logging.

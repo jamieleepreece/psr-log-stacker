@@ -53,18 +53,12 @@ class LogManager extends AbstractLogger
      *
      * Merges runtime context with closure context for better debugging.
      */
-    public function log($level, string|Stringable $message, array $context = [], string $colour = null): void
+    public function log($level, string|Stringable $message, array $context = [], string|null $colour = null): void
     {
         if ($this->error_logging_enabled) {
             $context = array_merge($this->getErrorContext(), $context);
 
             $context_message = '';
-
-            // if (!empty($context)) {
-            //  $context_message .= PHP_EOL . PHP_EOL . 'Context:' . PHP_EOL;
-            //  $context_message .= \App\Helpers\ArrayMerger::toStringList($context);
-            //  $context_message .= PHP_EOL;
-            // }
 
             if (is_array($this->registered_loggers)) {
                 foreach ($this->registered_loggers as $key => $loggerConfig) {
@@ -108,7 +102,10 @@ class LogManager extends AbstractLogger
     }
 
     /**
-     * Optionally set the context callback
+     * Optionally set additional context via callback.
+     *
+     * This will allow per log calling to be merged with a base context
+     * payload.
      */
     public function setContext(Closure $closure): void
     {
@@ -123,7 +120,7 @@ class LogManager extends AbstractLogger
      * use @example [Psr\Log\LogLevel::ERROR]. By default leaving this
      * empty will allow all levels of logging
      */
-    public function addLogger(string|LoggerInterface $logger, array $levels = null, bool $context = true): void
+    public function addLogger(string|LoggerInterface $logger, array|null $levels = null, bool $context = true): void
     {
         if ($this->registered_loggers === null) {
             $this->registered_loggers = [];
