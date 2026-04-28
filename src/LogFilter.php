@@ -41,6 +41,7 @@ class LogFilter extends AbstractLogger
      *
      * @var array<LogLevel> $constraints Array of PSR-3 log levels
      * @var array<LogLevel, LogLevel> $level_map Array of PSR-3 log levels to map as [level => remap to]
+     * @todo Allow all logging above, or below a set level
      */
     public function __construct(LogManager $logger, array|null $constraints = null, array|null $level_map = null)
     {
