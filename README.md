@@ -120,11 +120,11 @@ By design, logs are mapped before they are constrained, allowing remapping befor
 
 ## Supplied Loggers
 
-This package also contains loggers that you can use directly within your application. These can also be used for inspiration in creating your own loggers.
+This package also contains loggers that you can use directly within your application. These can be found within the `PsrLogStacker\Loggers\` namespace. These may also serve as inspiration in creating your own, bespoke loggers.
 
-### Laravel
+### Symfony & Laravel
 
-There is a CLI logger, which parses log calls and writes them to the CLI using the underlying Symfony output. This requires the php to be executed via the artisan command.
+There is a CLI logger, which parses log calls and writes them to the CLI using the underlying Symfony output. This requires to be called within the artisan command line. Being that Laravel is for the most part a huge Symfony wrapper, this should work within both Laravel and Symfony.
 
 ```php
 use PsrLogStacker\LogManager;

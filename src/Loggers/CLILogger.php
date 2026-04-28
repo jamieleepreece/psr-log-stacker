@@ -4,10 +4,10 @@ namespace PsrLogStacker\Loggers;
 
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
+use Psr\Log\AbstractLogger;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;
-use Psr\Log\AbstractLogger;
 
 /**
  * Handler for logging PSR to artisan console
@@ -17,7 +17,7 @@ use Psr\Log\AbstractLogger;
  * @see Symfony\Component\Console\Logger\ConsoleLogger
  * @see https://www.php-fig.org/psr/psr-3/
  */
-class LaravelCLI extends AbstractLogger
+class CLILogger extends AbstractLogger
 {
     private OutputInterface $output;
 
