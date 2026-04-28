@@ -23,5 +23,8 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^4.0"
+    },
+    "suggest": {
+        "laravel/framework": "Required to use Loggers/CLILogger"
     }
 }

@@ -17,7 +17,7 @@ use Psr\Log\AbstractLogger;
  * @see Symfony\Component\Console\Logger\ConsoleLogger
  * @see https://www.php-fig.org/psr/psr-3/
  */
-class CLILogger extends AbstractLogger
+class LaravelCLI extends AbstractLogger
 {
     private OutputInterface $output;
 

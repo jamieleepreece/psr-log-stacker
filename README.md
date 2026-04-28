@@ -118,6 +118,31 @@ app.WARN: Something bad is about to happen! {} []
 
 By design, logs are mapped before they are constrained, allowing remapping before filtering out. This can be handy for third party services that are noisy on certain levels.
 
+## Supplied Loggers
+
+This package also contains loggers that you can use directly within your application. These can also be used for inspiration in creating your own loggers.
+
+### Laravel
+
+There is a CLI logger, which parses log calls and writes them to the CLI using the underlying Symfony output. This requires the php to be executed via the artisan command.
+
+```php
+use PsrLogStacker\LogManager;
+use PsrLogStacker\Loggers\LaravelCLI;
+use Symfony\Component\Console\Output\OutputInterface;
+
+// Create LogManager instance
+$logManager = new LogManager();
+
+$output = $this->getOutput();
+
+if ($output instanceof OutputInterface) {
+    $logManager->addLogger(
+        logger: new CLILogger($output),
+        context: false
+    );
+}
+```
 
 ## Future plans
 
