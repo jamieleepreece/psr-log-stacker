@@ -4,7 +4,7 @@ namespace PsrLogStacker;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\AbstractLogger;
-use Illuminate\Support\Facades\Log;
+// use Illuminate\Support\Facades\Log;
 use Closure;
 use Stringable;
 
@@ -119,6 +119,8 @@ class LogManager extends AbstractLogger
      * For example, if you only want that logger to log errors, then
      * use @example [Psr\Log\LogLevel::ERROR]. By default leaving this
      * empty will allow all levels of logging
+     *
+     * @todo Check for Laravel install and use native log fallback when string is given
      */
     public function addLogger(string|LoggerInterface $logger, array|null $levels = null, bool $context = true): void
     {
@@ -127,7 +129,7 @@ class LogManager extends AbstractLogger
         }
 
         if (is_string($logger)) {
-            $this->addLogger(Log::channel($logger), $levels);
+            // $this->addLogger(Log::channel($logger), $levels);
         } elseif ($logger instanceof LoggerInterface) {
             $this->registered_loggers[] = (object) [
                 'levels' => $levels,
