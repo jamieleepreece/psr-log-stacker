@@ -38,6 +38,26 @@ $logManager->addLogger($dbLogger);
 $logManager->info('Hello world');
 ```
 
+#### Laravel
+
+If using within a Laravel install, the `addLogger()` method also accepts any string name of a configured logger
+
+```php
+// Create LogManager instance
+$logManager = new \PsrLogStacker\LogManager();
+
+// Register loggers configured within `config/logging.php`
+$logManager->addLogger('daily');
+
+// Log action
+$logManager->info('Hello world');
+```
+
+**`logs/laravel.log`**
+```log
+[2026-04-26 19:34:05] local.INFO: Hello world  
+```
+
 ### Context
 
 To provide additional context, additional base context can be provided on the manager instance. This will be *merged* into the context array of each log call. 
@@ -67,6 +87,10 @@ The following is then produced from a merged context on the log call
     // Log context
     'job' => 'fetch_api'
 ]
+```
+If using monolog, then the final output could look like so:
+```log
+app.INFO: Scheduling job {"origin":"cli","user":"system","job":"fetch_api"} []
 ```
 
 ## Log Filter
@@ -126,22 +150,26 @@ This package also contains loggers that you can use directly within your applica
 
 There is a CLI logger, which parses log calls and writes them to the CLI using the underlying Symfony output. This requires to be called within the artisan command line. Being that Laravel is for the most part a huge Symfony wrapper, this should work within both Laravel and Symfony.
 
+**Example of Laravel artisan use**
 ```php
-use PsrLogStacker\LogManager;
-use PsrLogStacker\Loggers\LaravelCLI;
-use Symfony\Component\Console\Output\OutputInterface;
+Artisan::command('test', function () {
+    $logManager = new \PsrLogStacker\LogManager();
 
-// Create LogManager instance
-$logManager = new LogManager();
+    $output = $this->getOutput();
 
-$output = $this->getOutput();
+    if ($output instanceof \Symfony\Component\Console\Output\OutputInterface) {
+        $logManager->addLogger(
+            logger: new PsrLogStacker\Loggers\CLILogger($output),
+            context: false
+        );
 
-if ($output instanceof OutputInterface) {
-    $logManager->addLogger(
-        logger: new CLILogger($output),
-        context: false
-    );
-}
+        $logManager->warning("I'm in the terminal!");
+    }
+})->purpose('test logging');
+```
+
+```bash
+I'm in the terminal! [warning]
 ```
 
 ## Future plans

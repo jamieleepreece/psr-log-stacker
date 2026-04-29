@@ -26,5 +26,11 @@
     },
     "suggest": {
         "laravel/framework": "Required to use Loggers/CLILogger"
+    },
+    "archive": {
+        "exclude": [
+            "examples/",
+            ".vscode/"
+        ]
     }
 }

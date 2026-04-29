@@ -4,7 +4,6 @@ namespace PsrLogStacker;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\AbstractLogger;
-// use Illuminate\Support\Facades\Log;
 use Closure;
 use Stringable;
 
@@ -129,7 +128,9 @@ class LogManager extends AbstractLogger
         }
 
         if (is_string($logger)) {
-            // $this->addLogger(Log::channel($logger), $levels);
+            if (class_exists(\Illuminate\Support\Facades\Log::class)) {
+                $this->addLogger(\Illuminate\Support\Facades\Log::channel($logger), $levels);
+            }
         } elseif ($logger instanceof LoggerInterface) {
             $this->registered_loggers[] = (object) [
                 'levels' => $levels,

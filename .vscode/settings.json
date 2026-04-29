@@ -2,4 +2,9 @@
     "cSpell.ignorePaths": [
         "composer.json"
     ],
+    "[php]": {
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4
+    }
 }
